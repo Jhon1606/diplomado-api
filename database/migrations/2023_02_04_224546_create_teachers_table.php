@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->int('document');
+            $table->integer('document')->unique();
             $table->string('name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->integer('contract_type');
             $table->timestamps();
             $table->softDeletes();
