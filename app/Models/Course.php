@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Courses extends Model
+class Course extends Model
 {
     use HasFactory;
 
@@ -13,4 +13,6 @@ class Courses extends Model
         'name',
         'hours_max'
     ];
+
+    protected $hidden = ['pivot'];
 }
