@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CourseTrait;
+use App\Http\Requests\Course\StoreCourseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +35,7 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTeacherRequest $request)
+    public function store(StoreCourseRequest $request)
     {
         try {
             return DB::transaction(function () use ($request) {
@@ -72,6 +73,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
+            return DB::transaction(function () use($request, $id) {
+                return $this->courseUpdate($id, $request);
+            });
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
         //
     }
 
@@ -83,6 +91,13 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
+        try {
+            return DB::transaction(function() use($id) {
+                return $this->courseDelete($id);
+            });
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
         //
     }
 
