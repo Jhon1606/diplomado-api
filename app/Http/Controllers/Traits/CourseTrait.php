@@ -13,15 +13,15 @@ trait CourseTrait
     {
         try {
 
-            $coursers = Course::with('courses')->paginate(15);
+            $courses = Course::with('teachers')->paginate(15);
 
-            return $this->respond(200, $coursers, 'Listado de profesores.');
+            return $this->respond(200, $courses, 'Listado de cursos.');
 
         } catch (\Throwable $th) {
             return $this->respond(
                 500,
                 null,
-                'Error al obtener listado de profesores.',
+                'Error al obtener listado de cursos.',
                 $th->getMessage()
             );
         }
@@ -32,20 +32,17 @@ trait CourseTrait
         try {
 
             Course::create([
-                'document' => $request->document,
                 'name' => $request->name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'contract_type' => $request->contract_type
+                'hours_max' => $request->hours_max
             ]);
 
-            return $this->respond(200, null, 'Profesor creado correctamente.');
+            return $this->respond(200, null, 'Curso creado correctamente.');
 
         } catch (\Throwable $th) {
             return $this->respond(
                 500,
                 null,
-                'Error al crear nuevo profesor.',
+                'Error al crear nuevo curso.',
                 $th->getMessage()
             );
         }
@@ -54,19 +51,19 @@ trait CourseTrait
     public function courseShow($id){
         try {
 
-            $courser = Course::where('id', $id)->with('courses')->first();
+            $course = Course::where('id', $id)->with('teachers')->first();
 
-            if(!$courser){
-                return $this->respond(404, null, 'Este profesor no se encuentra en el sistema.');
+            if(!$course){
+                return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');
             }
 
-            return $this->respond(200, $courser, 'Información del profesor.');
+            return $this->respond(200, $course, 'Información del curso.');
 
         } catch (\Throwable $th) {
             return $this->respond(
                 500,
                 null,
-                'Error al visualizar profesor.',
+                'Error al visualizar curso.',
                 $th->getMessage()
             );
         }
@@ -76,12 +73,12 @@ trait CourseTrait
     {
         try {
 
-            $courser = Course::find($id);
+            $course = Course::find($id);
 
-            if(!$courser){
-                return $this->respond(404, null, 'Este profesor no se encuentra en el sistema.');
+            if(!$course){
+                return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');
             }
-            $courser->update([
+            $course->update([
                 'document' => $request->document,
                 'name' => $request->name,
                 'last_name' => $request->last_name,
@@ -89,33 +86,33 @@ trait CourseTrait
                 'contract_type' => $request->contract_type
             ]);
 
-            return $this->respond(200, null, 'Profesor actualizado correctamente.');
+            return $this->respond(200, null, 'Curso actualizado correctamente.');
 
         } catch (\Throwable $th) {
             return $this->respond(
                 500,
                 null,
-                'Error al actualizar profesor',
+                'Error al actualizar curso',
                 $th->getMessage()
             );
         }
     }
 
-    public function courserDelete($id){
+    public function courseDelete($id){
         try {
 
-            $courser = Course::find($id);
-            if(!$courser){
-                return $this->respond(404, null, 'Este profesor no se encuentra en el sistema.');
+            $course = Course::find($id);
+            if(!$course){
+                return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');
             }
 
-            return $this->respond(200, null, 'Profesor actualizado correctamente.');
+            return $this->respond(200, null, 'Curso actualizado correctamente.');
 
         } catch (\Throwable $th) {
             return $this->respond(
                 500,
                 null,
-                'Error al eliminar profesor',
+                'Error al eliminar curso.',
                 $th->getMessage()
             );
         }

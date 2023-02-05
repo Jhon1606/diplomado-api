@@ -15,4 +15,9 @@ class Course extends Model
     ];
 
     protected $hidden = ['pivot'];
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, Assignment::class);
+    }
 }
