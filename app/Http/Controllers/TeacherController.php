@@ -73,7 +73,13 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            return DB::transaction(function () use($request, $id) {
+                return $this->teacherUpdate($id, $request);
+            });
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
     }
 
     /**
@@ -84,7 +90,13 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            return DB::transaction(function() use($id) {
+                return $this->teacherDelete($id);
+            });
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
     }
 
     private function internalServerError($th)
