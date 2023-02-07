@@ -14,7 +14,7 @@ class Teacher extends Model
         'name',
         'last_name',
         'email',
-        'contract_type',
+        'contract_type', // 1 = 40, 2 = 20
         'laboral_hours'
     ];
 

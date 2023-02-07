@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('teachers', TeacherController::class);
 Route::resource('courses', CourseController::class);
+Route::put('assignment/teacher/{teacher_id}/course/{course_id}',[AssignmentController::class,'assignment']);
