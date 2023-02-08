@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('teachers', TeacherController::class);
 Route::resource('courses', CourseController::class);
-Route::put('assignment/teacher/{teacher_id}/course/{course_id}',[AssignmentController::class,'assignment']);
+
+Route::put('assignment/teacher/{teacher_id}/course/{course_id}', [AssignmentController::class, 'assignment']);

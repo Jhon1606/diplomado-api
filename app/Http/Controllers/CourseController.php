@@ -100,14 +100,4 @@ class CourseController extends Controller
         }
         //
     }
-
-    private function internalServerError($th)
-    {
-        return $this->respond(
-            500,
-            null,
-            'Internal Server Error',
-            $th->getMessage()
-        );
-    }
 }

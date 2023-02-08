@@ -98,14 +98,4 @@ class TeacherController extends Controller
             return $this->respondServerError($th->getMessage());
         }
     }
-
-    private function internalServerError($th)
-    {
-        return $this->respond(
-            500,
-            null,
-            'Internal Server Error',
-            $th->getMessage()
-        );
-    }
 }
