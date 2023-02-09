@@ -14,7 +14,6 @@ trait AssignmentTrait
     public function assignmentTeacherCourse($teacher_id, $course_id)
     {
         try {
-
             $course = Course::find($course_id);
             $teacher = Teacher::find($teacher_id);
 
@@ -41,7 +40,6 @@ trait AssignmentTrait
 
     private function updateTeacherLaboralHours(Teacher $teacher, Course $course, $newHours)
     {
-
         $max_hours_contract_type = 40;
         if ($teacher->contract_type == 2) {
             $max_hours_contract_type = 20;
@@ -59,5 +57,29 @@ trait AssignmentTrait
         }
 
         return $this->respond(400, null, 'Tiempo de horas asignadas ha sido excedido.');
+    }
+
+    public function assignmentRemoveTeacherCourse($id)
+    {
+        try {
+            $assignment = Assignment::find($id);
+
+            if($assignment){
+                $teacher = Teacher::find($assignment->teacher_id);
+                $course = Course::find($assignment->course_id);
+
+                $teacher->update([
+                    'laboral_hours' => ($teacher->laboral_hours - $course->hours_max)
+                ]);
+
+                $assignment->delete();
+
+                return $this->respond(200, null, 'Asignación removida correctamente.');
+            }
+            return $this->respond(404, null, 'Asignación no encontrada.');
+
+        } catch (\Throwable $th) {
+           $this->respond(500, null, 'Error al remover asignación', $th->getMessage());
+        }
     }
 }

@@ -14,4 +14,12 @@ class Assignment extends Model
         'teacher_id'
     ];
 
+    public function teacher(){
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
 }
