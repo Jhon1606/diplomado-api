@@ -15,6 +15,12 @@ trait RestActions
         ];
     }
 
+    /**
+     * Take message from Throwable error.
+     *
+     * @param  th  $th
+     * @return \Illuminate\Http\Response
+     */
     public function respondServerError($errorMessage)
     {
         return [

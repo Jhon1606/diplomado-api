@@ -73,17 +73,17 @@ trait CourseTrait
     {
         try {
 
-            $course = Course::find($id);
+            $course = Course::where('id', $id)->with('teachers')->first();
 
             if(!$course){
                 return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');
             }
+
+            $this->updateInfoTeachers($course->hours_max, $course->teachers, $request->hours_max);
+
             $course->update([
-                'document' => $request->document,
                 'name' => $request->name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'contract_type' => $request->contract_type
+                'hours_max' => $request->hours_max
             ]);
 
             return $this->respond(200, null, 'Curso actualizado correctamente.');
@@ -101,12 +101,16 @@ trait CourseTrait
     public function courseDelete($id){
         try {
 
-            $course = Course::find($id);
+            $course = Course::where('id', $id)->with('teachers')->first();
+
             if(!$course){
                 return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');
             }
 
-            return $this->respond(200, null, 'Curso actualizado correctamente.');
+            $this->updateInfoTeachers($course->hours_max, $course->teachers);
+            $course->delete();
+
+            return $this->respond(200, null, 'Curso eliminado correctamente.');
 
         } catch (\Throwable $th) {
             return $this->respond(
@@ -115,6 +119,14 @@ trait CourseTrait
                 'Error al eliminar curso.',
                 $th->getMessage()
             );
+        }
+    }
+
+    private function updateInfoTeachers($course_hours, $teachers, $new_course_hours = 0){
+        foreach ($teachers as $teacher) {
+            $teacher->update([
+                'laboral_hours' => (($teacher->laboral_hours - $course_hours) + $new_course_hours)
+            ]);
         }
     }
 }
