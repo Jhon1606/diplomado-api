@@ -10,19 +10,38 @@ class UserController extends Controller
 {
     use UserTrait;
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         try {
            return DB::transaction(function () use($request) {
-               return $this->signIn($request);
+               return $this->userSignIn($request);
            });
 
         } catch (\Throwable $th) {
-            return $this->respond(
-                500,
-                null,
-                'Internal server error.',
-                $th->getMessage()
-            );
+            return $this->respondServerError($th->getMessage());
+        }
+    }
+
+    public function logout()
+    {
+        try {
+           return DB::transaction(function () {
+               return $this->userLogout();
+           });
+
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
+    }
+
+    public function checkAuth()
+    {
+        try {
+            return response()->json([
+                'message' => 'Inicia sesión para continuar.'
+            ], 401);
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
         }
     }
 }

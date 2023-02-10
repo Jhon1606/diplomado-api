@@ -26,4 +26,16 @@ class AssignmentController extends Controller
             return $this->respondServerError($th->getMessage());
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            return DB::transaction(function () use ($id) {
+                return $this->assignmentRemoveTeacherCourse($id);
+            });
+
+        } catch (\Throwable $th) {
+            return $this->respondServerError($th->getMessage());
+        }
+    }
 }
