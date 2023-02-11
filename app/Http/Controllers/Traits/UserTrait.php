@@ -15,8 +15,9 @@ trait UserTrait
             if(Auth::attempt($request->only('email','password'))){
                 $token = $request->user()->createToken('token')->plainTextToken;
                 return response()->json([
+                    'status' => 200,
                     'token' => $token
-                ], 200);
+                ]);
             }
 
             return $this->respond(404, [], 'Email o contraseña incorrecta, intenta nuevamente.');
