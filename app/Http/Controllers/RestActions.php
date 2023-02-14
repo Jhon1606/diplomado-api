@@ -7,12 +7,12 @@ trait RestActions
 
     public function respond($status, $data = [], $message = null, $error = null)
 	{
-		return [
+		return response()->json([
             'status' => $status,
             'result' => $data,
             'message'=>$message,
             'error' => $error
-        ];
+        ], 200);
     }
 
     /**
@@ -23,10 +23,10 @@ trait RestActions
      */
     public function respondServerError($errorMessage)
     {
-        return [
+        return response()->json([
             'status' => 500,
             'message' => 'Internal Server Error',
             'error' => $errorMessage
-        ];
+        ], 500);
     }
 }

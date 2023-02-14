@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->group(function (){
     Route::resource('teachers', TeacherController::class);
     Route::resource('courses', CourseController::class);
-    
+
     Route::controller(AssignmentController::class)->group(function (){
         Route::put('assignment/teacher/{teacher_id}/course/{course_id}', 'assignment');
         Route::delete('assignment/{id}', 'destroy');
@@ -31,5 +31,5 @@ Route::middleware('auth:sanctum')->group(function (){
 
 Route::controller(UserController::class)->group(function() {
     Route::post('login', 'login');
-    Route::get('checkAuth', 'checkAuth')->name('loginToContinue');
+    Route::get('check-auth', 'checkToken')->name('loginToContinue');
 });

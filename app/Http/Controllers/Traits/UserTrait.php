@@ -32,7 +32,8 @@ trait UserTrait
         }
     }
 
-    public function userLogout(){
+    public function userLogout()
+    {
         try {
             Auth::user()->currentAccessToken()->delete();
             return $this->respond(200, null, 'Sesión cerrada');
@@ -44,6 +45,28 @@ trait UserTrait
                 'Error al cerrar sesión.',
                 $th->getMessage()
             );
+        }
+    }
+
+    public function checkAuthToken()
+    {
+        try {
+            $user = auth('sanctum')->user();
+            if($user){
+                return response()->json([
+                    'status' => 200,
+                    'result' => $user,
+                    'authorization' => true
+                ], 200);
+            }
+            return response()->json([
+                'status' => 401,
+                'resut' => null,
+                'authorization' => false
+            ]);
+
+        } catch (\Throwable $th) {
+            return $this->respond(500, [], 'Error al checkear token');
         }
     }
 }

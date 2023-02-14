@@ -34,12 +34,10 @@ class UserController extends Controller
         }
     }
 
-    public function checkAuth()
+    public function checkToken()
     {
         try {
-            return response()->json([
-                'message' => 'Inicia sesión para continuar.'
-            ], 401);
+            return $this->checkAuthToken();
         } catch (\Throwable $th) {
             return $this->respondServerError($th->getMessage());
         }

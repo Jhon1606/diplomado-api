@@ -13,7 +13,7 @@ trait CourseTrait
     {
         try {
 
-            $courses = Course::with('teachers')->paginate(15);
+            $courses = Course::with('teachers')->get();
 
             return $this->respond(200, $courses, 'Listado de cursos.');
 
