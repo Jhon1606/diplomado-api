@@ -1,0 +1,6 @@
+1. instalar Xampp https://www.apachefriends.org/es/download.html version (8.2.0 / PHP 8.2.0)
+2. tener instalado:
+-VS Code https://code.visualstudio.com/download
+-Node js https://nodejs.org/es/download/
+3. instalar Composer https://getcomposer.org/download/
+4. ejecutar en vs code en la carpeta backend del proyecto en la terminal en comando php.ini
