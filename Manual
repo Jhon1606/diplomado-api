@@ -1,6 +1,18 @@
 1. instalar Xampp https://www.apachefriends.org/es/download.html version (8.2.0 / PHP 8.2.0)
+1.1 iniciar xampp: apache y mysql
 2. tener instalado:
+-git https://git-scm.com/download/win
 -VS Code https://code.visualstudio.com/download
 -Node js https://nodejs.org/es/download/
 3. instalar Composer https://getcomposer.org/download/
-4. ejecutar en vs code en la carpeta backend del proyecto en la terminal en comando php.ini
+4. renombrar arvhivo ".env.example" a ".env"
+5. crear base de datos cuyo nombre es "diplomado_api", ingresando en: 
+http://localhost/phpmyadmin/
+6. ejecutar en la carpeta del proyecto backend los comandos uno por uno:
+-composer install
+-php artisan migrate:fresh --seed
+-php artisan serve
+-php artisan key:generate
+7. ejecutar en la calpeta del front los comandos:
+-npm install
+-npm start
