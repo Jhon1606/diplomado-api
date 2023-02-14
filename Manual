@@ -16,3 +16,4 @@ http://localhost/phpmyadmin/
 7. ejecutar en la calpeta del front los comandos:
 -npm install
 -npm start
+8.el usuario: admin@api.com cuya contraseña es 123456
