@@ -51,7 +51,7 @@ trait CourseTrait
     public function courseShow($id){
         try {
 
-            $course = Course::where('id', $id)->with('teachers')->first();
+            $course = Course::where('id', $id)->with('teachers', 'assigment')->first();
 
             if(!$course){
                 return $this->respond(404, null, 'Este curso no se encuentra en el sistema.');

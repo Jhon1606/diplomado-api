@@ -13,7 +13,7 @@ trait TeacherTrait
     {
         try {
 
-            $teachers = Teacher::with('courses')->paginate(15);
+            $teachers = Teacher::with('courses')->get();
 
             return $this->respond(200, $teachers, 'Listado de profesores.');
 
@@ -54,7 +54,7 @@ trait TeacherTrait
     public function teacherShow($id){
         try {
 
-            $teacher = Teacher::where('id', $id)->with('courses')->first();
+            $teacher = Teacher::where('id', $id)->with('courses', 'assigment')->first();
 
             if(!$teacher){
                 return $this->respond(404, null, 'Este profesor no se encuentra en el sistema.');

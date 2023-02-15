@@ -25,4 +25,9 @@ class Teacher extends Model
         return $this->belongsToMany(Course::class, Assignment::class);
     }
 
+    public function assigment()
+    {
+        return $this->hasOne(Assignment::class);
+    }
+
 }
